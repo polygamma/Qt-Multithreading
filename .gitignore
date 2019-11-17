@@ -1,0 +1,6 @@
+# CLion
+/cmake-build-*/
+/.idea/
+
+# Doxygen
+/Doxygen/
