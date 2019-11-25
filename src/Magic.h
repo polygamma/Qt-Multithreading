@@ -106,7 +106,7 @@ inline bool invokeInContext(QObject *const context, const Qt::ConnectionType con
  * @return The void* of \p f
  */
 template<typename Return, typename Class, typename ...Args>
-void *functionToPointer(Return (Class::*f)(Args...)) {
+inline void *functionToPointer(Return (Class::*f)(Args...)) {
     union {
         Return (Class::*rf)(Args...);
 
@@ -125,7 +125,7 @@ void *functionToPointer(Return (Class::*f)(Args...)) {
  * @return The void* of \p f
  */
 template<typename Return, typename ...Args>
-void *functionToPointer(Return (*f)(Args...)) {
+inline void *functionToPointer(Return (*f)(Args...)) {
     union {
         Return (*rf)(Args...);
 
