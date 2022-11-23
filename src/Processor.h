@@ -48,7 +48,7 @@ protected:
      * of inherited classes automatically. This works, because the constructor is a default constructor. \n
      * Initializes the Processor with sane defaults.
      */
-    Processor<T, R>()
+    Processor()
             : SlotProvider(nullptr), workerControllerContext(nullptr), workerController(nullptr),
               setNumberOfThreadsPtr(nullptr), clearQueuePtr(nullptr), extendQueuePtr(nullptr) {}
 

@@ -37,7 +37,7 @@ public:
     /**
      * Removes connections and stops all threads
      */
-    ~WorkerController<T, R>() override {
+    ~WorkerController() override {
         // mark, that we entered the destructor
         this->isInDestructor = true;
 
@@ -74,7 +74,7 @@ private:
      * @param processor The Processor which will send tasks to the WorkerController and receive results from the Worker
      * @param numberOfThreads The number of threads to use, which is going to be equal to the number of Worker
      */
-    WorkerController<T, R>(std::unique_ptr<Worker<T, R>> prototypeWorker, std::unique_ptr<Processor<T, R>> processor,
+    WorkerController(std::unique_ptr<Worker<T, R>> prototypeWorker, std::unique_ptr<Processor<T, R>> processor,
                            const std::size_t numberOfThreads)
             : QObject(nullptr), prototypeWorker(std::move(prototypeWorker)), processor(processor.get()) {
         // setup the processor

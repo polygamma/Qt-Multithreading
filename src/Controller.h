@@ -32,7 +32,7 @@ public:
      * @param parent    Another QObject to use as parent for the controller, if wanted.
      *                  See: https://doc.qt.io/qt-5/qobject.html#QObject
      */
-    Controller<T, R>(std::unique_ptr<Processor<T, R>> processor, std::unique_ptr<Worker<T, R>> worker,
+    Controller(std::unique_ptr<Processor<T, R>> processor, std::unique_ptr<Worker<T, R>> worker,
                      const std::size_t numberOfThreads, QObject *const parent = nullptr)
             : QObject(parent) {
         // setup WorkerController and the corresponding thread
@@ -49,7 +49,7 @@ public:
     /**
      * Stops the WorkerController and thus everything else
      */
-    ~Controller<T, R>() override {
+    ~Controller() override {
         workerControllerThread.quit();
         workerControllerThread.wait();
     }

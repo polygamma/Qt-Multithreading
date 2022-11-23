@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QThread>
 #include <QMetaObject>
+#include <QRecursiveMutex>
 #include <QMutex>
 #include <QMutexLocker>
 #include <utility>
@@ -277,7 +278,7 @@ private:
      * If locking of other mutexes is needed, too, this mutex HAS TO BE LOCKED FIRST. ALWAYS!
      * We don't want any deadlocks.
      */
-    static inline QMutex globalMutex = QMutex(QMutex::NonRecursive);
+    static inline QMutex globalMutex = QMutex();
     /**
      * A map containing pointers to SignalProvider that triggered Slots - stored according to the LIFO principle. \n
      * Assigned to the calling threads.
@@ -291,11 +292,11 @@ private:
     /**
      * A mutex that has to be locked, when working with the SlotProvider::signalSenders
      */
-    QMutex signalSendersMutex = QMutex(QMutex::NonRecursive);
+    QMutex signalSendersMutex = QMutex();
     /**
      * A mutex that has to be locked, when working with the SlotProvider::slotsToConnectedSignals
      */
-    QMutex slotsToConnectedSignalsMutex = QMutex(QMutex::NonRecursive);
+    QMutex slotsToConnectedSignalsMutex = QMutex();
 
     /**
      * Removes connections to this object. \n
@@ -440,7 +441,7 @@ public:
     /**
      * Destructor which notifies all SlotProvider, that are connected in any way to this object, about the destruction
      */
-    ~Signal<Args...>() final {
+    ~Signal() final {
         disconnect(nullptr, static_cast<SignalProvider *>(this), nullptr);
     }
 
@@ -545,7 +546,7 @@ private:
     /**
      * A mutex that has to be locked, when working with the Signal::connectedSlots
      */
-    QMutex connectedSlotsMutex = QMutex(QMutex::Recursive);
+    QRecursiveMutex connectedSlotsMutex = QRecursiveMutex();
 
     /**
      * Removes connections to this object. \n

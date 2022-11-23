@@ -46,7 +46,7 @@ public:
      * Be explicit about the destructor, since we are explicit about the copy constructor,
      * move constructor, copy assignment operator and move assignment operator, too
      */
-    ~Worker<T, R>() override = default;
+    ~Worker() override = default;
 
 protected:
     /**
@@ -54,7 +54,7 @@ protected:
      * of inherited classes automatically. This works, because the constructor is a default constructor. \n
      * Initializes the workers with sane defaults.
      */
-    Worker<T, R>()
+    Worker()
             : QObject(nullptr), workerUUID(0), uniqueWorkerUUID(QUuid::createUuid()),
               workerControllerContext(nullptr), workerController(nullptr),
               processorContext(nullptr), processor(nullptr),
@@ -63,12 +63,12 @@ protected:
     /**
      * Be explicit about not wanting a copy constructor
      */
-    Worker<T, R>(const Worker<T, R> &) = delete;
+    Worker(const Worker<T, R> &) = delete;
 
     /**
      * Be explicit about not wanting a move constructor
      */
-    Worker<T, R>(Worker<T, R> &&) = delete;
+    Worker(Worker<T, R> &&) = delete;
 
     /**
      * Be explicit about not wanting a copy assignment operator
