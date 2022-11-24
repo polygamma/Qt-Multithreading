@@ -410,7 +410,7 @@ private:
  *              since they have to match.
  */
 template<typename ...Args>
-class Signal : public SignalProvider, public SlotProvider {
+class Signal final : public SignalProvider, public SlotProvider {
 public:
     /**
      * Constructor allowing to set a QObject as parent - see: https://doc.qt.io/qt-5/qobject.html#QObject
